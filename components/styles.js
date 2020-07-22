@@ -49,20 +49,27 @@ const styles = StyleSheet.create({
       position: 'absolute',
       borderRadius: 50,
       borderWidth: 5,
-      backgroundColor: 'white',
       justifyContent: 'center',
       alignItems: 'center'
     },
     current_value_area: {
-        backgroundColor: '#183059',
+        backgroundColor: '#467bcc',
         justifyContent: 'center',
         alignItems: 'center',
         marginTop: 15,
-        marginBottom: 65,
+        marginBottom: 15,
     },
     current_value: {
         fontSize: 20,
         color: 'white',
+    },
+    digit_button:{
+        color: "#5f8dd3",
+        alignItems: 'center',
+    },
+    digit_button_text: {
+        color:'white',
+        fontSize: 25,
     },
 });
 
