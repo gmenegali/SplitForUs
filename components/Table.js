@@ -18,7 +18,7 @@ export default class Table extends Component {
     }
 
     submitDialogInput = (name) => {
-        this.props.updateName(name, this.state.index_selected);
+        this.props.updatePeopleName(name, this.state.index_selected);
         this.setState({dialogInputVisible: false});
     }
 
@@ -38,48 +38,26 @@ export default class Table extends Component {
         const plates = []
         const alpha = 2 * Math.PI / n;
 
-        if(this.props.menu_status == 'DistributeBills'){
-            plates.push(
-                <TouchableHighlight
-                    style={{
-                        ...styles.plate,
-                        borderColor: 'white',
-                        backgroundColor: 'white',
-                        width: 4 * plate_radius,
-                        height: 4 * plate_radius,
-                        top: interface_height / 2 - 2* plate_radius,
-                        left: interface_width / 2 - 2* plate_radius,
-                    }}
-                    key={11}
-                    onPress={() => this.openDialogInput()}
-                    underlayColor='#ccc'
-                >
-                    <Text>
-                        Click who shared
-                    </Text>
-                </TouchableHighlight>
-            )
-        }
-        if(this.props.distribute_status == 'Split'){
-            plates.push(
-                <TouchableHighlight
-                    style={{
-                        backgroundColor: 'green',
-                        width: 65,
-                        height: 20,
-                        top: interface_height - 40,
-                        left: interface_width - 70,
-                    }}
-                    key={12}
-                    onPress={() => this.props.updatePeopleSelectedAll(1)}
-                    underlayColor='#ccc'
-                >
-                    <Text style={{color: 'white', marginLeft: 4}}>
-                        Select all
-                    </Text>
-                </TouchableHighlight>
-            )
-        }
+        // plates.push(
+        //     <TouchableHighlight
+        //         style={{
+        //             ...styles.plate,
+        //             borderColor: 'white',
+        //             backgroundColor: 'white',
+        //             width: 4 * plate_radius,
+        //             height: 4 * plate_radius,
+        //             top: interface_height / 2 - 2* plate_radius,
+        //             left: interface_width / 2 - 2* plate_radius,
+        //         }}
+        //         key={11}
+        //         // onPress={() => this.openDialogInput()}
+        //         underlayColor='#ccc'
+        //     >
+        //         <Text>
+        //             {/*Click who shared*/}
+        //         </Text>
+        //     </TouchableHighlight>
+        // )
 
         for (let index = 0; index < n; index += 1) {
             plates.push(
@@ -88,7 +66,9 @@ export default class Table extends Component {
                         ...styles.plate,
                         borderColor: plate_colors[index],
                         backgroundColor: (
-                            this.props.distribute_status == 'SelectPeople' ||
+                            this.props.menu_status == 'AddPeople' ||
+                            this.props.menu_status == 'AddItem' ||
+                            this.props.menu_status == 'Finish' ||
                             this.props.people_selected[index]) ?
                             'white': 'gray',
                         width: 2 * plate_radius,

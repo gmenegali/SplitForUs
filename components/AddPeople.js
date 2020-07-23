@@ -10,8 +10,9 @@ export default class AddPeople extends Component {
     render() {
         return (
             <View style={styles.menu}>
-                <View style={styles.title_area}>
+                <View style={styles.title_area_spaced}>
                     <Text style={styles.title}> How many people? </Text>
+                    <Text style={styles.subtitle}> (Tap plate to change the name) </Text>
                 </View>
                 <View style={styles.control_area}>
                     <View style={styles.button_area}>
@@ -38,7 +39,7 @@ export default class AddPeople extends Component {
                     <Button
                         title="Next"
                         color="#999999"
-                        onPress={ () => this.props.updateMenuStatus('DistributeBills') }
+                        onPress={ () => this.props.updateMenuStatus('AddItem') }
                     />
                 </View>
             </View>

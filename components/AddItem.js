@@ -4,46 +4,12 @@ import styles from './styles.js';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import AddPeople from "./AddPeople";
 
-export default class DistributeBills extends Component {
+export default class AddItem extends Component {
     constructor(props){
       super(props);
     }
 
     render() {
-        var menu_button;
-        if(this.props.distribute_status == 'SelectPeople'){
-            menu_button =
-                <View style={{flexDirection: 'row'}}>
-                    <View style={{flex: 1}}>
-                    </View>
-                    <View style={{flex: 1}}>
-                        <Button
-                            title="Distribute"
-                            color="#467bcc"
-                            onPress={() => this.props.updateDistributeStatus('Split')}
-                        />
-                    </View>
-                </View>
-        } else if(this.props.distribute_status == 'Split') {
-            menu_button =
-                <View style={{flexDirection: 'row'}}>
-                    <View style={{flex: 1}}>
-                        <Button
-                            title="Cancel"
-                            color="red"
-                            onPress={() => this.props.updateDistributeStatus('SelectPeople')}
-                        />
-                    </View>
-                    <View style={{flex: 1}}>
-                        <Button
-                            title="Split"
-                            color="green"
-                            onPress={() => this.props.updateDistributeStatus('SelectPeople')}
-                        />
-                    </View>
-                </View>
-        }
-
         return (
             <View style={styles.menu}>
                 <View style={{flexDirection: 'row'}}>
@@ -65,11 +31,33 @@ export default class DistributeBills extends Component {
                         />
                     </View>
                 </View>
+                <View style={styles.title_area}>
+                    <Text style={styles.title}> Add item </Text>
+                </View>
                 <View style={styles.current_value_area}>
                     <Text style={styles.current_value}> $ {this.props.current_value} </Text>
                 </View>
 
-                {menu_button}
+                <View style={{flexDirection: 'row'}}>
+                    <View style={{flex: 1}}>
+                        <Button
+                            title="Finish"
+                            color="#999999"
+                            onPress={() => this.props.updateMenuStatus('Finish')}
+                        />
+                    </View>
+                    <View style={{flex: 1}}>
+                        <Button
+                            title="Distribute"
+                            color="#467bcc"
+                            onPress={
+                                this.props.current_value != 0 ?
+                                    () => this.props.updateMenuStatus('DistributeItem') :
+                                    () => this.props.showAlert('Oh ...', 'Add the value of an item to split!')
+                            }
+                        />
+                    </View>
+                </View>
 
                 <View style={{flex:1, flexDirection: 'row'}}>
                     <View style={{flex: 1}}>

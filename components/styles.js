@@ -15,15 +15,26 @@ const styles = StyleSheet.create({
         flex: 2,
         backgroundColor: '#00A878',
     },
-    title_area: {
+    title_area_spaced: {
         backgroundColor: '#5f8dd3',
         justifyContent: 'center',
         alignItems: 'center',
         marginTop: 15,
         marginBottom: 65,
     },
+    title_area: {
+        backgroundColor: '#5f8dd3',
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginTop: 5,
+        marginBottom: 5,
+    },
     title: {
         fontSize: 20,
+        color: 'white',
+    },
+    subtitle: {
+        fontSize: 12,
         color: 'white',
     },
     control_area: {
