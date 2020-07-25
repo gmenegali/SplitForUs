@@ -97,7 +97,7 @@ export default class Table extends Component {
             underlayColor="#ccc"
           >
             <Text>
-              { `${peopleNames[index]}\n$${peopleValues[index]}` }
+              { `${peopleNames[index]}\n$${peopleValues[index].toFixed(2)}` }
             </Text>
           </TouchableHighlight>,
         );

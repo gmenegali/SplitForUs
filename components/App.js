@@ -18,6 +18,7 @@ export default class App extends Component {
       interfaceHeight: 0,
       peopleNames: ['You', 'P1', 'P2', 'P3', 'P4', 'P5', 'P6', 'P7', 'P8', 'P9'],
       peopleValues: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      peopleUnfairCharges: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
       totalValue: 0,
       taxPercentage: 8,
       tipPercentage: 100,
@@ -104,7 +105,7 @@ export default class App extends Component {
   splitItem = () => {
     let countSelected = 0;
     const {
-      numPeople, peopleSelected, peopleValues, currentValue, totalValue,
+      numPeople, peopleSelected, peopleValues, currentValue, totalValue, peopleUnfairCharges,
     } = this.state;
 
     for (let i = 0; i < numPeople; i += 1) {
@@ -113,19 +114,39 @@ export default class App extends Component {
     if (countSelected === 0) {
       this.showAlert('Oh ...', 'Select who split the item');
     } else {
-      const splitValue = (Math.ceil((currentValue / countSelected) * 100) / 100).toFixed(2);
-      const newTotalValue = (parseFloat(totalValue) + parseFloat(currentValue)).toFixed(2);
+      const splitValue = ((Math.floor((currentValue * 100) / countSelected) / 100));
+      let change = Math.ceil((currentValue - countSelected * splitValue) * 100) / 100;
+      const newTotalValue = parseFloat((parseFloat(totalValue) + parseFloat(currentValue)).toFixed(2));
+
+      const peopleSelectedIndexes = [];
 
       for (let i = 0; i < numPeople; i += 1) {
         if (peopleSelected[i] === true) {
           peopleValues[i] = parseFloat(
-            (parseFloat(peopleValues[i]) + parseFloat(splitValue)).toFixed(2),
+            (parseFloat(peopleValues[i]) + splitValue).toFixed(2),
           );
+          peopleSelectedIndexes.push(i);
         }
+      }
+
+      // Handle the $10/3 problem: Somebody has to pay more, but this should be balanced
+      while (change > 0) {
+        let min = Number.MAX_SAFE_INTEGER;
+        let minIndex = -1;
+        for (let i = 0; i < peopleSelectedIndexes.length; i += 1) {
+          if (peopleUnfairCharges[peopleSelectedIndexes[i]] < min) {
+            min = peopleUnfairCharges[peopleSelectedIndexes[i]];
+            minIndex = peopleSelectedIndexes[i];
+          }
+        }
+        peopleValues[minIndex] += 0.01;
+        change -= 0.01;
+        peopleUnfairCharges[minIndex] += 1;
       }
 
       this.setState({
         peopleValues,
+        peopleUnfairCharges,
         peopleSelected: [false, false, false, false, false, false, false, false, false, false],
         menuStatus: 'AddItem',
         currentValue: 0,

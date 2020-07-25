@@ -39,7 +39,7 @@ export default class AddItem extends Component {
           <Text style={styles.currentValue}>
             {' '}
             $
-            {currentValue}
+            {currentValue.toFixed(2)}
           </Text>
         </View>
 
