@@ -123,18 +123,16 @@ export default class App extends Component {
       this.showAlert('Oh ...', 'Select who split the item');
     } else {
       const splitValue = ((Math.floor((currentValue * 100) / countSelected) / 100));
-      let change = Math.ceil((currentValue - countSelected * splitValue) * 100) / 100;
+      let change = parseFloat((currentValue - countSelected * splitValue).toFixed(2));
       const newTotalValue = parseFloat(
         (parseFloat(totalValue) + parseFloat(currentValue)).toFixed(2),
       );
-
+      console.log(change);
       const peopleSelectedIndexes = [];
 
       for (let i = 0; i < numPeople; i += 1) {
         if (peopleSelected[i] === true) {
-          peopleValues[i] = parseFloat(
-            (parseFloat(peopleValues[i]) + splitValue).toFixed(2),
-          );
+          peopleValues[i] += splitValue;
           peopleSelectedIndexes.push(i);
         }
       }
