@@ -21,7 +21,7 @@ export default class App extends Component {
       peopleUnfairCharges: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
       totalValue: 0,
       taxPercentage: 8,
-      tipPercentage: 100,
+      tipPercentage: 12,
       peopleSelected: [false, false, false, false, false, false, false, false, false, false],
       menuStatus: 'AddPeople',
       currentValue: 0,
@@ -39,6 +39,14 @@ export default class App extends Component {
       peopleNames[index] = name;
       this.setState({ peopleNames });
     }
+  }
+
+  updateTaxPercentage = (value) => {
+    this.setState({ taxPercentage: parseFloat(value) });
+  }
+
+  updateTipPercentage = (value) => {
+    this.setState({ tipPercentage: parseFloat(value) });
   }
 
   updateNumPeople = (sign) => {
@@ -116,7 +124,9 @@ export default class App extends Component {
     } else {
       const splitValue = ((Math.floor((currentValue * 100) / countSelected) / 100));
       let change = Math.ceil((currentValue - countSelected * splitValue) * 100) / 100;
-      const newTotalValue = parseFloat((parseFloat(totalValue) + parseFloat(currentValue)).toFixed(2));
+      const newTotalValue = parseFloat(
+        (parseFloat(totalValue) + parseFloat(currentValue)).toFixed(2),
+      );
 
       const peopleSelectedIndexes = [];
 
@@ -204,6 +214,8 @@ export default class App extends Component {
           taxPercentage={taxPercentage}
           tipPercentage={tipPercentage}
           updateMenuStatus={this.updateMenuStatus}
+          updateTaxPercentage={this.updateTaxPercentage}
+          updateTipPercentage={this.updateTipPercentage}
         />
       );
     }
@@ -219,6 +231,8 @@ export default class App extends Component {
           peopleSelected={peopleSelected}
           peopleNames={peopleNames}
           peopleValues={peopleValues}
+          tipPercentage={tipPercentage}
+          taxPercentage={taxPercentage}
           setLayoutDimensions={this.setLayoutDimensions}
           updatePeopleSelected={this.updatePeopleSelected}
           updatePeopleName={this.updatePeopleName}

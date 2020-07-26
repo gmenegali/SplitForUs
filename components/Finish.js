@@ -4,13 +4,21 @@ import {
 } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import PropTypes from 'prop-types';
+import { Slider } from 'react-native-elements';
 import styles from './styles';
 
 export default class Finish extends Component {
   render() {
     const {
-      updateMenuStatus, totalValue, taxPercentage, tipPercentage,
+      updateMenuStatus, totalValue, taxPercentage,
+      tipPercentage, updateTaxPercentage, updateTipPercentage,
     } = this.props;
+
+    const tipValue = ((totalValue * tipPercentage) / 100).toFixed(2);
+    const taxValue = ((totalValue * taxPercentage) / 100).toFixed(2);
+    const grandTotal = (
+      parseFloat(totalValue) + parseFloat(tipValue) + parseFloat(taxValue)
+    ).toFixed(2);
 
     return (
       <View style={styles.menu}>
@@ -34,33 +42,61 @@ export default class Finish extends Component {
           </View>
         </View>
         <View style={styles.title_area}>
-          <Text style={styles.title}>Subtotal</Text>
-          <Text style={styles.title}>
-            $
-            { totalValue }
-          </Text>
+          <Text style={styles.title}>Subtotal = ${ totalValue.toFixed(2) }</Text>
         </View>
         <View style={styles.title_area}>
-          <Text style={styles.title}>Tax</Text>
           <Text style={styles.title}>
-            (
+            Tax (
             { taxPercentage }
-            %) = $
-            {((totalValue * taxPercentage) / 100).toFixed(2)}
+            % = $
+            {taxValue}
+            )
           </Text>
         </View>
+        <View style={{
+          marginLeft: 10, marginRight: 10, alignItems: 'stretch', justifyContent: 'center',
+        }}
+        >
+          <Slider
+            value={taxPercentage}
+            maximumValue={20}
+            minimumValue={0}
+            thumbTintColor="#eeeeee"
+            minimumTrackTintColor="#eeeeee"
+            // maximumTrackTintColor='white'
+            step={0.5}
+            onValueChange={(slider) => updateTaxPercentage(slider)}
+          />
+        </View>
         <View style={styles.title_area}>
-          <Text style={styles.title}>Tip</Text>
           <Text style={styles.title}>
-            (
+            Tax (
             { tipPercentage }
-            %) = $
-            {((totalValue * tipPercentage) / 100).toFixed(2) }
+            % = $
+            {tipValue}
+            )
           </Text>
         </View>
+        <View style={{
+          marginLeft: 10, marginRight: 10, alignItems: 'stretch', justifyContent: 'center',
+        }}
+        >
+          <Slider
+            value={tipPercentage}
+            maximumValue={20}
+            minimumValue={0}
+            thumbTintColor="#eeeeee"
+            minimumTrackTintColor="#eeeeee"
+            // maximumTrackTintColor='white'
+            step={0.5}
+            onValueChange={(slider2) => updateTipPercentage(slider2)}
+          />
+        </View>
         <View style={styles.title_area}>
-          <Text style={styles.title}>Grand Total</Text>
-          <Text style={styles.title}>$175</Text>
+          <Text style={styles.title}>
+            Grand Total = $
+            {grandTotal}
+          </Text>
         </View>
       </View>
     );
@@ -72,4 +108,6 @@ Finish.propTypes = {
   taxPercentage: PropTypes.number.isRequired,
   totalValue: PropTypes.number.isRequired,
   updateMenuStatus: PropTypes.func.isRequired,
+  updateTipPercentage: PropTypes.func.isRequired,
+  updateTaxPercentage: PropTypes.func.isRequired,
 };

@@ -42,6 +42,8 @@ export default class Table extends Component {
         peopleNames,
         peopleValues,
         updatePeopleSelected,
+        taxPercentage,
+        tipPercentage,
       } = this.props;
 
       const { dialogInputVisible } = this.state;
@@ -76,6 +78,14 @@ export default class Table extends Component {
       // )
 
       for (let index = 0; index < numPeople; index += 1) {
+        let plateText;
+        if (menuStatus === 'Finish') {
+          const tipValue = ((peopleValues[index] * tipPercentage) / 100);
+          const taxValue = ((peopleValues[index] * taxPercentage) / 100);
+          plateText = '$' + peopleNames[index] + '\n$' + (peopleValues[index] + tipValue + taxValue).toFixed(2);
+        } else {
+          plateText = '$' + peopleNames[index] + '\n$' + peopleValues[index].toFixed(2);
+        }
         plates.push(
           <TouchableHighlight
             style={{
@@ -97,7 +107,7 @@ export default class Table extends Component {
             underlayColor="#ccc"
           >
             <Text>
-              { `${peopleNames[index]}\n$${peopleValues[index].toFixed(2)}` }
+              { plateText }
             </Text>
           </TouchableHighlight>,
         );
@@ -129,6 +139,8 @@ Table.propTypes = {
   numPeople: PropTypes.number.isRequired,
   interfaceWidth: PropTypes.number.isRequired,
   interfaceHeight: PropTypes.number.isRequired,
+  tipPercentage: PropTypes.number.isRequired,
+  taxPercentage: PropTypes.number.isRequired,
   menuStatus: PropTypes.string.isRequired,
   peopleSelected: PropTypes.arrayOf(PropTypes.bool).isRequired,
   peopleNames: PropTypes.arrayOf(PropTypes.string).isRequired,
