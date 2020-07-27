@@ -127,7 +127,7 @@ export default class App extends Component {
       const newTotalValue = parseFloat(
         (parseFloat(totalValue) + parseFloat(currentValue)).toFixed(2),
       );
-      console.log(change);
+
       const peopleSelectedIndexes = [];
 
       for (let i = 0; i < numPeople; i += 1) {

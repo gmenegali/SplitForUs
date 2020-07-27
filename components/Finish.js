@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import {
+  Button,
   Text, View,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -70,7 +71,7 @@ export default class Finish extends Component {
         </View>
         <View style={styles.title_area}>
           <Text style={styles.title}>
-            Tax (
+            Tip (
             { tipPercentage }
             % = $
             {tipValue}
@@ -83,7 +84,7 @@ export default class Finish extends Component {
         >
           <Slider
             value={tipPercentage}
-            maximumValue={20}
+            maximumValue={25}
             minimumValue={0}
             thumbTintColor="#eeeeee"
             minimumTrackTintColor="#eeeeee"
@@ -97,6 +98,22 @@ export default class Finish extends Component {
             Grand Total = $
             {grandTotal}
           </Text>
+        </View>
+        <View style={{ flexDirection: 'row', marginTop: 10 }}>
+          <View style={{ flex: 1 }}>
+            <Button
+              title="Restart"
+              color="#999999"
+              // onPress={() => updateMenuStatus('AddItem')}
+            />
+          </View>
+          <View style={{ flex: 1 }}>
+            <Button
+              title="Share"
+              color="#467bcc"
+              // onPress={() => updatePeopleSelectedAll(1)}
+            />
+          </View>
         </View>
       </View>
     );
