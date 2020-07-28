@@ -21,7 +21,7 @@ export default class DistributeItem extends Component {
               name="arrow-left"
               color="white"
               backgroundColor="#5f8dd3"
-              onPress={() => updateMenuStatus('AddPeople')}
+              onPress={() => updateMenuStatus('AddItem')}
             />
           </View>
           <View style={{ flex: 1, alignItems: 'flex-end' }}>
@@ -29,7 +29,7 @@ export default class DistributeItem extends Component {
               name="undo"
               color="white"
               backgroundColor="#5f8dd3"
-              onPress={() => updateMenuStatus('AddPeople')}
+              onPress={() => updateMenuStatus('AddItem')}
             />
           </View>
         </View>

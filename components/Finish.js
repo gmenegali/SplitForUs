@@ -11,7 +11,7 @@ import styles from './styles';
 export default class Finish extends Component {
   render() {
     const {
-      updateMenuStatus, totalValue, taxPercentage,
+      updateMenuStatus, totalValue, taxPercentage, reset,
       tipPercentage, updateTaxPercentage, updateTipPercentage,
     } = this.props;
 
@@ -104,7 +104,7 @@ export default class Finish extends Component {
             <Button
               title="Restart"
               color="#999999"
-              // onPress={() => updateMenuStatus('AddItem')}
+              onPress={() => reset()}
             />
           </View>
           <View style={{ flex: 1 }}>

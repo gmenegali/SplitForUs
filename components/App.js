@@ -25,6 +25,7 @@ export default class App extends Component {
       peopleSelected: [false, false, false, false, false, false, false, false, false, false],
       menuStatus: 'AddPeople',
       currentValue: 0,
+      history: [],
     };
   }
 
@@ -113,8 +114,11 @@ export default class App extends Component {
   splitItem = () => {
     let countSelected = 0;
     const {
-      numPeople, peopleSelected, peopleValues, currentValue, totalValue, peopleUnfairCharges,
+      numPeople, peopleSelected, peopleValues, currentValue,
+      totalValue, peopleUnfairCharges, history,
     } = this.state;
+
+    const historyDiff = peopleValues.slice();
 
     for (let i = 0; i < numPeople; i += 1) {
       if (peopleSelected[i] === true) countSelected += 1;
@@ -152,15 +156,63 @@ export default class App extends Component {
         peopleUnfairCharges[minIndex] += 1;
       }
 
+      for (let i = 0; i < numPeople; i += 1) {
+        historyDiff[i] = peopleValues[i] - historyDiff[i];
+      }
+      history.push(historyDiff);
+
       this.setState({
         peopleValues,
         peopleUnfairCharges,
+        history,
         peopleSelected: [false, false, false, false, false, false, false, false, false, false],
         menuStatus: 'AddItem',
         currentValue: 0,
         totalValue: newTotalValue,
       });
     }
+  }
+
+  reset = () => {
+    this.showAlert('You will reset everything!', 'Are you sure?');
+    this.setState({
+      numPeople: 2,
+      peopleNames: ['You', 'P1', 'P2', 'P3', 'P4', 'P5', 'P6', 'P7', 'P8', 'P9'],
+      peopleValues: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      peopleUnfairCharges: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      totalValue: 0,
+      taxPercentage: 8,
+      tipPercentage: 12,
+      peopleSelected: [false, false, false, false, false, false, false, false, false, false],
+      menuStatus: 'AddPeople',
+      currentValue: 0,
+      history: [],
+    });
+  }
+
+  historyPop = () => {
+    const {
+      numPeople, peopleValues, peopleUnfairCharges, history,
+    } = this.state;
+    let { totalValue, menuStatus } = this.state;
+
+    if (history.length > 0) {
+      const targetValues = history.pop();
+      let targetTotal = 0;
+      for (let i = 0; i < numPeople; i += 1) {
+        peopleValues[i] = Math.abs(peopleValues[i] - targetValues[i]);
+        targetTotal += targetValues[i];
+      }
+      totalValue -= targetTotal;
+    } else {
+      menuStatus = 'AddPeople';
+    }
+
+    this.setState({
+      peopleValues,
+      totalValue,
+      menuStatus,
+    });
   }
 
   render() {
@@ -194,6 +246,7 @@ export default class App extends Component {
           updateMenuStatus={this.updateMenuStatus}
           updateCurrentValue={this.updateCurrentValue}
           showAlert={this.showAlert}
+          historyPop={this.historyPop}
         />
       );
     } else if (menuStatus === 'DistributeItem') {
@@ -214,6 +267,7 @@ export default class App extends Component {
           updateMenuStatus={this.updateMenuStatus}
           updateTaxPercentage={this.updateTaxPercentage}
           updateTipPercentage={this.updateTipPercentage}
+          reset={this.reset}
         />
       );
     }

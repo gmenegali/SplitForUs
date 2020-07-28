@@ -9,7 +9,7 @@ import styles from './styles';
 export default class AddItem extends Component {
   render() {
     const {
-      currentValue, showAlert, updateMenuStatus, updateCurrentValue,
+      currentValue, showAlert, updateMenuStatus, updateCurrentValue, historyPop,
     } = this.props;
     return (
       <View style={styles.menu}>
@@ -20,8 +20,9 @@ export default class AddItem extends Component {
               name="arrow-left"
               color="white"
               backgroundColor="#5f8dd3"
-              onPress={() => updateMenuStatus('AddPeople')}
+              onPress={() => historyPop()}
             />
+
           </View>
           <View style={{ flex: 1, alignItems: 'flex-end' }}>
             <Icon.Button
@@ -200,4 +201,5 @@ AddItem.propTypes = {
   showAlert: PropTypes.func.isRequired,
   updateMenuStatus: PropTypes.func.isRequired,
   updateCurrentValue: PropTypes.func.isRequired,
+  historyPop: PropTypes.func.isRequired,
 };

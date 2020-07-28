@@ -56,35 +56,35 @@ export default class Table extends Component {
       const plates = [];
       const alpha = (2 * Math.PI) / numPeople;
 
-      // plates.push(
-      //     <TouchableHighlight
-      //         style={{
-      //             ...styles.plate,
-      //             borderColor: 'white',
-      //             backgroundColor: 'white',
-      //             width: 4 * plateRadius,
-      //             height: 4 * plateRadius,
-      //             top: interfaceHeight / 2 - 2* plateRadius,
-      //             left: interface_width / 2 - 2* plateRadius,
-      //         }}
-      //         key={11}
-      //         // onPress={() => this.openDialogInput()}
-      //         underlayColor='#ccc'
-      //     >
-      //         <Text>
-      //             {/*Click who shared*/}
-      //         </Text>
-      //     </TouchableHighlight>
-      // )
+      plates.push(
+        <TouchableHighlight
+          style={{
+            ...styles.plate,
+            borderColor: 'white',
+            backgroundColor: 'white',
+            width: 4 * plateRadius,
+            height: 4 * plateRadius,
+            top: interfaceHeight / 2 - 2 * plateRadius,
+            left: interfaceWidth / 2 - 2 * plateRadius,
+          }}
+          key={11}
+              // onPress={() => this.openDialogInput()}
+          underlayColor="#ccc"
+        >
+          <Text>
+            {/* Click who shared */}
+          </Text>
+        </TouchableHighlight>,
+      );
 
       for (let index = 0; index < numPeople; index += 1) {
         let plateText;
         if (menuStatus === 'Finish') {
           const tipValue = ((peopleValues[index] * tipPercentage) / 100);
           const taxValue = ((peopleValues[index] * taxPercentage) / 100);
-          plateText = '$' + peopleNames[index] + '\n$' + (peopleValues[index] + tipValue + taxValue).toFixed(2);
+          plateText = `$${peopleNames[index]}\n$${(peopleValues[index] + tipValue + taxValue).toFixed(2)}`;
         } else {
-          plateText = '$' + peopleNames[index] + '\n$' + peopleValues[index].toFixed(2);
+          plateText = `$${peopleNames[index]}\n$${peopleValues[index].toFixed(2)}`;
         }
         plates.push(
           <TouchableHighlight
