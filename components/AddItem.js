@@ -2,35 +2,42 @@ import React, { Component } from 'react';
 import {
   Text, View, TouchableHighlight, Button,
 } from 'react-native';
-import Icon from 'react-native-vector-icons/FontAwesome';
 import PropTypes from 'prop-types';
 import styles from './styles';
 
 export default class AddItem extends Component {
   render() {
     const {
-      currentValue, showAlert, updateMenuStatus, updateCurrentValue, historyPop,
+      currentValue, showAlert, updateMenuStatus,
+      updateCurrentValue, historyPop, restart, history,
     } = this.props;
     return (
       <View style={styles.menu}>
         <View style={{ flexDirection: 'row' }}>
 
-          <View style={{ flex: 1, alignItems: 'flex-start' }}>
-            <Icon.Button
-              name="arrow-left"
-              color="white"
-              backgroundColor="#5f8dd3"
-              onPress={() => historyPop()}
-            />
-
+          <View style={{ flex: 1, alignItems: 'flex-start', marginBottom: 10 }}>
+            <TouchableHighlight
+              style={styles.digit_button}
+              onPress={() => {
+                if (history.length > 0) {
+                  historyPop();
+                } else {
+                  updateMenuStatus('AddPeople');
+                }
+              }}
+              underlayColor="#467bcc"
+            >
+              <Text style={{ marginLeft: 10, color: 'white' }}>Back</Text>
+            </TouchableHighlight>
           </View>
           <View style={{ flex: 1, alignItems: 'flex-end' }}>
-            <Icon.Button
-              name="undo"
-              color="white"
-              backgroundColor="#5f8dd3"
-              onPress={() => updateMenuStatus('AddPeople')}
-            />
+            <TouchableHighlight
+              style={styles.digit_button}
+              onPress={() => showAlert('You will reset everything!', 'Are you sure?', restart)}
+              underlayColor="#467bcc"
+            >
+              <Text style={{ marginRight: 10, color: 'white' }}>Restart</Text>
+            </TouchableHighlight>
           </View>
         </View>
         <View style={styles.title_area}>
@@ -56,11 +63,13 @@ export default class AddItem extends Component {
             <Button
               title="Distribute"
               color="#467bcc"
-              onPress={
-                { currentValue } !== 0
-                  ? () => updateMenuStatus('DistributeItem')
-                  : () => showAlert('Oh ...', 'Add the value of an item to split!')
-              }
+              onPress={() => {
+                if (currentValue !== 0) {
+                  updateMenuStatus('DistributeItem');
+                } else {
+                  showAlert('Oh ...', 'Add the value of an item to split!', () => {});
+                }
+              }}
             />
           </View>
         </View>
@@ -198,8 +207,10 @@ export default class AddItem extends Component {
 
 AddItem.propTypes = {
   currentValue: PropTypes.number.isRequired,
+  history: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.number)).isRequired,
   showAlert: PropTypes.func.isRequired,
   updateMenuStatus: PropTypes.func.isRequired,
   updateCurrentValue: PropTypes.func.isRequired,
   historyPop: PropTypes.func.isRequired,
+  restart: PropTypes.func.isRequired,
 };

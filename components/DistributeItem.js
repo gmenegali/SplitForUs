@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {
-  Text, View, Button,
+  Text, View, Button, TouchableHighlight,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import PropTypes from 'prop-types';
@@ -9,28 +9,30 @@ import styles from './styles';
 export default class DistributeItem extends Component {
   render() {
     const {
-      currentValue, updateMenuStatus, splitItem, updatePeopleSelectedAll,
+      currentValue, updateMenuStatus, splitItem, updatePeopleSelectedAll, showAlert, restart,
     } = this.props;
 
     return (
       <View style={styles.menu}>
         <View style={{ flexDirection: 'row' }}>
 
-          <View style={{ flex: 1, alignItems: 'flex-start' }}>
-            <Icon.Button
-              name="arrow-left"
-              color="white"
-              backgroundColor="#5f8dd3"
+          <View style={{ flex: 1, alignItems: 'flex-start', marginBottom: 10 }}>
+            <TouchableHighlight
+              style={styles.digit_button}
               onPress={() => updateMenuStatus('AddItem')}
-            />
+              underlayColor="#467bcc"
+            >
+              <Text style={{ marginLeft: 10, color: 'white' }}>Back</Text>
+            </TouchableHighlight>
           </View>
           <View style={{ flex: 1, alignItems: 'flex-end' }}>
-            <Icon.Button
-              name="undo"
-              color="white"
-              backgroundColor="#5f8dd3"
-              onPress={() => updateMenuStatus('AddItem')}
-            />
+            <TouchableHighlight
+              style={styles.digit_button}
+              onPress={() => showAlert('You will reset everything!', 'Are you sure?', restart)}
+              underlayColor="#467bcc"
+            >
+              <Text style={{ marginRight: 10, color: 'white' }}>Restart</Text>
+            </TouchableHighlight>
           </View>
         </View>
         <View style={styles.currentValue_area}>

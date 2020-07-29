@@ -82,9 +82,9 @@ export default class Table extends Component {
         if (menuStatus === 'Finish') {
           const tipValue = ((peopleValues[index] * tipPercentage) / 100);
           const taxValue = ((peopleValues[index] * taxPercentage) / 100);
-          plateText = `$${peopleNames[index]}\n$${(peopleValues[index] + tipValue + taxValue).toFixed(2)}`;
+          plateText = `${peopleNames[index]}\n$${(peopleValues[index] + tipValue + taxValue).toFixed(2)}`;
         } else {
-          plateText = `$${peopleNames[index]}\n$${peopleValues[index].toFixed(2)}`;
+          plateText = `${peopleNames[index]}\n$${peopleValues[index].toFixed(2)}`;
         }
         plates.push(
           <TouchableHighlight

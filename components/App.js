@@ -100,12 +100,15 @@ export default class App extends Component {
     this.setState({ peopleSelected });
   }
 
-  showAlert = (title, message) => {
+  showAlert = (title, message, func) => {
     Alert.alert(
       title,
       message,
       [
-        { text: 'OK' },
+        {
+          text: 'Cancel',
+        },
+        { text: 'OK', onPress: () => func() },
       ],
       { cancelable: false },
     );
@@ -124,7 +127,7 @@ export default class App extends Component {
       if (peopleSelected[i] === true) countSelected += 1;
     }
     if (countSelected === 0) {
-      this.showAlert('Oh ...', 'Select who split the item');
+      this.showAlert('Oh ...', 'Select who split the item', () => {});
     } else {
       const splitValue = ((Math.floor((currentValue * 100) / countSelected) / 100));
       let change = parseFloat((currentValue - countSelected * splitValue).toFixed(2));
@@ -173,8 +176,7 @@ export default class App extends Component {
     }
   }
 
-  reset = () => {
-    this.showAlert('You will reset everything!', 'Are you sure?');
+  restart = () => {
     this.setState({
       numPeople: 2,
       peopleNames: ['You', 'P1', 'P2', 'P3', 'P4', 'P5', 'P6', 'P7', 'P8', 'P9'],
@@ -229,6 +231,7 @@ export default class App extends Component {
       peopleSelected,
       menuStatus,
       currentValue,
+      history,
     } = this.state;
 
     if (menuStatus === 'AddPeople') {
@@ -243,10 +246,12 @@ export default class App extends Component {
       menu = (
         <AddItem
           currentValue={currentValue}
+          history={history}
           updateMenuStatus={this.updateMenuStatus}
           updateCurrentValue={this.updateCurrentValue}
           showAlert={this.showAlert}
           historyPop={this.historyPop}
+          restart={this.restart}
         />
       );
     } else if (menuStatus === 'DistributeItem') {
@@ -256,6 +261,8 @@ export default class App extends Component {
           updateMenuStatus={this.updateMenuStatus}
           updatePeopleSelectedAll={this.updatePeopleSelectedAll}
           splitItem={this.splitItem}
+          showAlert={this.showAlert}
+          restart={this.restart}
         />
       );
     } else if (menuStatus === 'Finish') {
@@ -267,7 +274,8 @@ export default class App extends Component {
           updateMenuStatus={this.updateMenuStatus}
           updateTaxPercentage={this.updateTaxPercentage}
           updateTipPercentage={this.updateTipPercentage}
-          reset={this.reset}
+          restart={this.restart}
+          showAlert={this.showAlert}
         />
       );
     }
