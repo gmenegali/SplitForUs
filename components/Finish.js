@@ -2,12 +2,21 @@ import React, { Component } from 'react';
 import {
   Button,
   Text, TouchableHighlight, View,
+  TouchableOpacity,
+  Share,
 } from 'react-native';
 import PropTypes from 'prop-types';
 import { Slider } from 'react-native-elements';
 import styles from './styles';
 
 export default class Finish extends Component {
+  onSharePress = () => {
+    Share.share({
+      title: 'Alert Title',
+      message: 'Message goes here.',
+    });
+  };
+
   render() {
     const {
       updateMenuStatus, totalValue, taxPercentage, restart, showAlert,
@@ -106,16 +115,9 @@ export default class Finish extends Component {
         <View style={{ flexDirection: 'row', marginTop: 10 }}>
           <View style={{ flex: 1 }}>
             <Button
-              title="Restart"
-              color="#999999"
-              onPress={() => restart()}
-            />
-          </View>
-          <View style={{ flex: 1 }}>
-            <Button
               title="Share"
               color="#467bcc"
-              // onPress={() => updatePeopleSelectedAll(1)}
+              onPress={() => this.onSharePress()}
             />
           </View>
         </View>

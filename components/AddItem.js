@@ -27,7 +27,7 @@ export default class AddItem extends Component {
               }}
               underlayColor="#467bcc"
             >
-              <Text style={{ marginLeft: 10, color: 'white' }}>Back</Text>
+              <Text style={{ marginLeft: 10, color: 'white' }}>{history.length > 0 ? 'Undo' : 'Back' }</Text>
             </TouchableHighlight>
           </View>
           <View style={{ flex: 1, alignItems: 'flex-end' }}>
