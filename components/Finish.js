@@ -1,26 +1,17 @@
 import React, { Component } from 'react';
 import {
-  Button,
-  Text, TouchableHighlight, View,
-  TouchableOpacity,
-  Share,
+  Button, Text, TouchableHighlight, View, Share,
 } from 'react-native';
 import PropTypes from 'prop-types';
 import { Slider } from 'react-native-elements';
+import { captureScreen } from 'react-native-view-shot';
 import styles from './styles';
 
 export default class Finish extends Component {
-  onSharePress = () => {
-    Share.share({
-      title: 'Alert Title',
-      message: 'Message goes here.',
-    });
-  };
-
   render() {
     const {
       updateMenuStatus, totalValue, taxPercentage, restart, showAlert,
-      tipPercentage, updateTaxPercentage, updateTipPercentage,
+      tipPercentage, updateTaxPercentage, updateTipPercentage, onSharePress,
     } = this.props;
 
     const tipValue = ((totalValue * tipPercentage) / 100).toFixed(2);
@@ -117,7 +108,7 @@ export default class Finish extends Component {
             <Button
               title="Share"
               color="#467bcc"
-              onPress={() => this.onSharePress()}
+              onPress={() => onSharePress()}
             />
           </View>
         </View>
@@ -135,4 +126,5 @@ Finish.propTypes = {
   updateTaxPercentage: PropTypes.func.isRequired,
   restart: PropTypes.func.isRequired,
   showAlert: PropTypes.func.isRequired,
+  onSharePress: PropTypes.func.isRequired,
 };

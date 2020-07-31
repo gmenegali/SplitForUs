@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {
-  View, Alert,
+  View, Alert, Share,
 } from 'react-native';
 import styles from './styles';
 import AddPeople from './AddPeople';
@@ -194,7 +194,7 @@ export default class App extends Component {
 
   historyPop = () => {
     const {
-      numPeople, peopleValues, peopleUnfairCharges, history,
+      numPeople, peopleValues, history,
     } = this.state;
     let { totalValue, menuStatus } = this.state;
 
@@ -216,6 +216,25 @@ export default class App extends Component {
       menuStatus,
     });
   }
+
+  onSharePress = () => {
+    const {
+      peopleNames, peopleValues, totalValue,
+      taxPercentage, tipPercentage, numPeople,
+    } = this.state;
+    let message = `Subtotal = $ ${(totalValue).toFixed(2)}\n`;
+    message += `Tax = ${taxPercentage}%\n`;
+    message += `Tip = ${tipPercentage}%\n`;
+    message += `Total = $ ${(totalValue * (1 + (taxPercentage / 100) + (tipPercentage / 100))).toFixed(2)}\n`;
+    message += '--- * --- * ---\n';
+    for (let i = 0; i < numPeople; i += 1) {
+      message += `${peopleNames[i]} = $ ${(peopleValues[i] * (1 + (taxPercentage / 100) + (tipPercentage / 100))).toFixed(2)}\n`;
+    }
+    Share.share({
+      title: 'Split info',
+      message,
+    });
+  };
 
   render() {
     let menu;
@@ -276,6 +295,7 @@ export default class App extends Component {
           updateTipPercentage={this.updateTipPercentage}
           restart={this.restart}
           showAlert={this.showAlert}
+          onSharePress={this.onSharePress}
         />
       );
     }
