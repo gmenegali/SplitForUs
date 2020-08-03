@@ -11,23 +11,11 @@ export default class Menu extends Component {
   render() {
     let menu;
     const {
-      numPeople,
-      totalValue,
-      taxPercentage,
-      tipPercentage,
-      menuStatus,
-      currentValue,
-      history,
-      updateNumPeople,
-      updateMenuStatus,
-      updateCurrentValue,
-      showAlert,
-      historyPop,
-      restart,
-      updatePeopleSelectedAll,
-      splitItem,
-      onSharePress,
-      updateTaxPercentage,
+      numPeople, totalValue, taxPercentage, tipPercentage,
+      menuStatus, currentValue, history, updateNumPeople,
+      updateMenuStatus, updateCurrentValue, showAlert,
+      historyPop, restart, updatePeopleSelectedAll,
+      splitItem, onSharePress, updateTaxPercentage,
       updateTipPercentage,
     } = this.props;
 

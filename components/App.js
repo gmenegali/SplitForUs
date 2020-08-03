@@ -11,8 +11,6 @@ export default class App extends Component {
     super(props);
     this.state = {
       numPeople: 2,
-      interfaceWidth: 0,
-      interfaceHeight: 0,
       peopleNames: ['You', 'P1', 'P2', 'P3', 'P4', 'P5', 'P6', 'P7', 'P8', 'P9'],
       peopleValues: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
       peopleUnfairCharges: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -24,11 +22,6 @@ export default class App extends Component {
       currentValue: 0,
       history: [],
     };
-  }
-
-  setLayoutDimensions = (layout) => {
-    const { width, height } = layout;
-    this.setState({ interfaceWidth: width, interfaceHeight: height });
   }
 
   updatePeopleName = (name, index) => {
@@ -235,18 +228,9 @@ export default class App extends Component {
 
   render() {
     const {
-      numPeople,
-      interfaceWidth,
-      interfaceHeight,
-      peopleNames,
-      peopleValues,
-      totalValue,
-      taxPercentage,
-      tipPercentage,
-      peopleSelected,
-      menuStatus,
-      currentValue,
-      history,
+      numPeople, peopleNames, peopleValues, totalValue,
+      taxPercentage, tipPercentage, peopleSelected,
+      menuStatus, currentValue, history,
     } = this.state;
 
     return (
@@ -273,15 +257,12 @@ export default class App extends Component {
         />
         <Table
           numPeople={numPeople}
-          interfaceWidth={interfaceWidth}
-          interfaceHeight={interfaceHeight}
           menuStatus={menuStatus}
           peopleSelected={peopleSelected}
           peopleNames={peopleNames}
           peopleValues={peopleValues}
           tipPercentage={tipPercentage}
           taxPercentage={taxPercentage}
-          setLayoutDimensions={this.setLayoutDimensions}
           updatePeopleSelected={this.updatePeopleSelected}
           updatePeopleName={this.updatePeopleName}
         />
