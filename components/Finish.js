@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
 import {
-  Button, Text, TouchableHighlight, View, Share,
+  Button, Text, TouchableHighlight, View,
 } from 'react-native';
 import PropTypes from 'prop-types';
 import { Slider } from 'react-native-elements';
-import { captureScreen } from 'react-native-view-shot';
 import styles from './styles';
 
 export default class Finish extends Component {

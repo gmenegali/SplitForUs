@@ -3,11 +3,8 @@ import {
   View, Alert, Share,
 } from 'react-native';
 import styles from './styles';
-import AddPeople from './AddPeople';
-import AddItem from './AddItem';
-import DistributeItem from './DistributeItem';
 import Table from './Table';
-import Finish from './Finish';
+import Menu from './Menu';
 
 export default class App extends Component {
   constructor(props) {
@@ -237,7 +234,6 @@ export default class App extends Component {
   };
 
   render() {
-    let menu;
     const {
       numPeople,
       interfaceWidth,
@@ -253,56 +249,28 @@ export default class App extends Component {
       history,
     } = this.state;
 
-    if (menuStatus === 'AddPeople') {
-      menu = (
-        <AddPeople
+    return (
+      <View style={styles.container}>
+        <Menu
           numPeople={numPeople}
-          updateNumPeople={this.updateNumPeople}
-          updateMenuStatus={this.updateMenuStatus}
-        />
-      );
-    } else if (menuStatus === 'AddItem') {
-      menu = (
-        <AddItem
+          totalValue={totalValue}
+          taxPercentage={taxPercentage}
+          tipPercentage={tipPercentage}
+          menuStatus={menuStatus}
           currentValue={currentValue}
           history={history}
+          updateNumPeople={this.updateNumPeople}
           updateMenuStatus={this.updateMenuStatus}
           updateCurrentValue={this.updateCurrentValue}
           showAlert={this.showAlert}
           historyPop={this.historyPop}
           restart={this.restart}
-        />
-      );
-    } else if (menuStatus === 'DistributeItem') {
-      menu = (
-        <DistributeItem
-          currentValue={currentValue}
-          updateMenuStatus={this.updateMenuStatus}
           updatePeopleSelectedAll={this.updatePeopleSelectedAll}
           splitItem={this.splitItem}
-          showAlert={this.showAlert}
-          restart={this.restart}
-        />
-      );
-    } else if (menuStatus === 'Finish') {
-      menu = (
-        <Finish
-          totalValue={totalValue}
-          taxPercentage={taxPercentage}
-          tipPercentage={tipPercentage}
-          updateMenuStatus={this.updateMenuStatus}
           updateTaxPercentage={this.updateTaxPercentage}
           updateTipPercentage={this.updateTipPercentage}
-          restart={this.restart}
-          showAlert={this.showAlert}
           onSharePress={this.onSharePress}
         />
-      );
-    }
-
-    return (
-      <View style={styles.container}>
-        { menu }
         <Table
           numPeople={numPeople}
           interfaceWidth={interfaceWidth}

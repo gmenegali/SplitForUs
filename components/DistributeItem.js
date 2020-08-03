@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import {
   Text, View, Button, TouchableHighlight,
 } from 'react-native';
-import Icon from 'react-native-vector-icons/FontAwesome';
 import PropTypes from 'prop-types';
 import styles from './styles';
 
@@ -84,4 +83,6 @@ DistributeItem.propTypes = {
   splitItem: PropTypes.func.isRequired,
   updateMenuStatus: PropTypes.func.isRequired,
   updatePeopleSelectedAll: PropTypes.func.isRequired,
+  restart: PropTypes.func.isRequired,
+  showAlert: PropTypes.func.isRequired,
 };
