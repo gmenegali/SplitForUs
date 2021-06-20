@@ -1,12 +1,4 @@
 {
   "name": "SplitForUs",
-  "displayName": "SplitForUs",
-  "expo": {
-    "name": "SplitForUs",
-    "slug": "SplitForUs",
-    "version": "1.0.0",
-    "assetBundlePatterns": [
-      "**/*"
-    ]
-  }
+  "displayName": "SplitForUs"
 }
