@@ -212,13 +212,19 @@ export default class App extends Component {
       peopleNames, peopleValues, totalValue,
       taxPercentage, tipPercentage, numPeople,
     } = this.state;
-    let message = `Subtotal = $ ${(totalValue).toFixed(2)}\n`;
+    let message = `(When values are not exact, we round it on a fair manner)\n\n`;
+    message += `Subtotal = $ ${(totalValue).toFixed(2)}\n`;
     message += `Tax = ${taxPercentage}%\n`;
     message += `Tip = ${tipPercentage}%\n`;
     message += `Total = $ ${(totalValue * (1 + (taxPercentage / 100) + (tipPercentage / 100))).toFixed(2)}\n`;
     message += '--- * --- * ---\n';
     for (let i = 0; i < numPeople; i += 1) {
-      message += `${peopleNames[i]} = $ ${(peopleValues[i] * (1 + (taxPercentage / 100) + (tipPercentage / 100))).toFixed(2)}\n`;
+      message += `${peopleNames[i]}\n`; //= $ ${(peopleValues[i] * (1 + (taxPercentage / 100) + (tipPercentage / 100))).toFixed(2)}\n`;
+      message += `Subtotal = $ ${(peopleValues[i]).toFixed(2)}\n`;
+      message += `Tax = ${(peopleValues[i] * ((taxPercentage / 100))).toFixed(2)}\n`;
+      message += `Tip = ${(peopleValues[i] * ((tipPercentage / 100))).toFixed(2)}\n`;
+      message += `Total = $ ${(peopleValues[i] * (1 + (taxPercentage / 100) + (tipPercentage / 100))).toFixed(2)}\n`;
+      message += '--- * --- * ---\n';
     }
     Share.share({
       title: 'Split info',

@@ -55,7 +55,7 @@ export default class AddItem extends Component {
           <View style={{ flex: 1 }}>
             <Button
               title="Finish"
-              color="#999999"
+              color="green"
               onPress={() => updateMenuStatus('Finish')}
             />
           </View>

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import {
   Text, View, TouchableHighlight,
 } from 'react-native';
-import DialogInput from 'react-native-dialog-input';
+import Dialog from "react-native-dialog";
 import PropTypes from 'prop-types';
 import styles from './styles';
 
@@ -15,6 +15,7 @@ export default class Table extends Component {
       personSelected: -1,
       interfaceWidth: 0,
       interfaceHeight: 0,
+      newName : "",
     };
   }
 
@@ -25,8 +26,10 @@ export default class Table extends Component {
   submitDialogChangeName = (name) => {
     const { updatePeopleName } = this.props;
     const { personSelected } = this.state;
-    updatePeopleName(name, personSelected);
-    this.setState({ dialogChangeNameVisible: false });
+    if(name != ""){
+      updatePeopleName(name, personSelected);
+    }
+    this.setState({ dialogChangeNameVisible: false, newName : ""});
   }
 
   closeDialogChangeName = () => {
@@ -130,14 +133,23 @@ export default class Table extends Component {
         }}
         style={styles.interface}
       >
-        <DialogInput
-          isDialogVisible={dialogChangeNameVisible}
-          title="Changing the name"
-          hintInput="Enter the name of the person (Max Length = 5)"
-          textInputProps={{ maxLength: 5 }}
-          submitInput={(name) => { this.submitDialogChangeName(name); }}
-          closeDialog={() => { this.closeDialogChangeName(); }}
-        />
+        <Dialog.Container visible={dialogChangeNameVisible}>
+          <Dialog.Title>Changing the name</Dialog.Title>
+          <Dialog.Description>
+            Enter the name of the person (Max Length = 5)
+          </Dialog.Description>
+          <Dialog.Input
+            onChangeText={input => this.setState({newName: input})}
+            onSubmitEditing={() => { 
+              let name = this.state.newName
+              if(name.length > 5){
+                name = name.substr(0,5);
+              }
+              this.submitDialogChangeName(name); 
+            }} 
+          />
+          <Dialog.Button label="Close" onPress={() => { this.closeDialogChangeName(); }} />
+        </Dialog.Container>
         {plates}
       </View>
 

@@ -50,7 +50,7 @@ export default class DistributeItem extends Component {
         <View style={{ flexDirection: 'row' }}>
           <View style={{ flex: 1, marginBottom: 10 }}>
             <Button
-              title="Split"
+              title="Assign"
               color="green"
               onPress={() => splitItem()}
             />
