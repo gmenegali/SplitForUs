@@ -12,7 +12,7 @@
   "dependencies": {
     "install": "^0.13.0",
     "jslint": "^0.12.1",
-    "npm": "^7.18.1",
+    "npm": "^8.11.0",
     "react": "17.0.1",
     "react-native": "0.64.1",
     "react-native-dialog": "^8.0.1",
